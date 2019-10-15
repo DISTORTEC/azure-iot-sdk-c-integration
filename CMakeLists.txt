@@ -29,6 +29,13 @@ endif()
 set(AZURE_CUSTOM_PLATFORM TRUE)
 add_subdirectory("${AZURE_IOT_SDK_C_DIRECTORY}" azure-iot-sdk-c EXCLUDE_FROM_ALL)
 
+add_library(azure-iot-sdk-c-object-library OBJECT
+		${CMAKE_CURRENT_LIST_DIR}/platform.cpp)
+target_include_directories(azure-iot-sdk-c-object-library PRIVATE
+		$<TARGET_PROPERTY:aziotsharedutil,INTERFACE_INCLUDE_DIRECTORIES>)
+target_compile_definitions(azure-iot-sdk-c-object-library PRIVATE
+		$<TARGET_PROPERTY:aziotsharedutil,INTERFACE_COMPILE_DEFINITIONS>)
+
 target_compile_definitions(aziotsharedutil PRIVATE
 		send=lwip_send
 		recv=lwip_recv)
@@ -41,7 +48,8 @@ target_include_directories(aziotsharedutil INTERFACE
 target_link_libraries(aziotsharedutil
 		lwIP::core)
 target_sources(aziotsharedutil PRIVATE
-		${AZURE_IOT_SDK_C_DIRECTORY}/certs/certs.c)
+		${AZURE_IOT_SDK_C_DIRECTORY}/certs/certs.c
+		$<TARGET_OBJECTS:azure-iot-sdk-c-object-library>)
 
 target_compile_options(iothub_client PRIVATE
 		-Wno-type-limits)
