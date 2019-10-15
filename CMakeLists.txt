@@ -31,6 +31,7 @@ add_subdirectory("${AZURE_IOT_SDK_C_DIRECTORY}" azure-iot-sdk-c EXCLUDE_FROM_ALL
 
 add_library(azure-iot-sdk-c-object-library OBJECT
 		${CMAKE_CURRENT_LIST_DIR}/platform.cpp
+		${CMAKE_CURRENT_LIST_DIR}/ThreadAPI.cpp
 		${CMAKE_CURRENT_LIST_DIR}/tickcounter.cpp)
 target_include_directories(azure-iot-sdk-c-object-library PRIVATE
 		$<TARGET_PROPERTY:aziotsharedutil,INTERFACE_INCLUDE_DIRECTORIES>)
