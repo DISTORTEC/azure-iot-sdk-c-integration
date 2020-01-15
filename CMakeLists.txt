@@ -49,7 +49,7 @@ target_include_directories(aziotsharedutil INTERFACE
 		${AZURE_IOT_SDK_C_DIRECTORY}/deps/azure-macro-utils-c/inc
 		${AZURE_IOT_SDK_C_DIRECTORY}/deps/umock-c/inc)
 target_link_libraries(aziotsharedutil
-		lwIP::core)
+		lwipcore)
 target_sources(aziotsharedutil PRIVATE
 		${AZURE_IOT_SDK_C_DIRECTORY}/certs/certs.c
 		$<TARGET_OBJECTS:azure-iot-sdk-c-object-library>)
