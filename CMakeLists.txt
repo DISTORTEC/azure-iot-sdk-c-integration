@@ -59,25 +59,35 @@ if(${use_sample_trusted_cert})
 			${AZURE_IOT_SDK_C_DIRECTORY}/certs/certs.c)
 endif()
 
-target_compile_options(iothub_client PRIVATE
-		-Wno-type-limits)
-target_include_directories(iothub_client INTERFACE
-		${AZURE_IOT_SDK_C_DIRECTORY}/iothub_client/inc)
+if(TARGET iothub_client)
+	target_compile_options(iothub_client PRIVATE
+			-Wno-type-limits)
+	target_include_directories(iothub_client INTERFACE
+			${AZURE_IOT_SDK_C_DIRECTORY}/iothub_client/inc)
+endif()
 
-target_compile_options(iothub_client_mqtt_transport PRIVATE
-		-Wno-maybe-uninitialized
-		-Wno-type-limits)
+if(TARGET iothub_client_mqtt_transport)
+	target_compile_options(iothub_client_mqtt_transport PRIVATE
+			-Wno-maybe-uninitialized
+			-Wno-type-limits)
+endif()
 
-target_compile_options(iothub_client_mqtt_ws_transport PRIVATE
-		-Wno-maybe-uninitialized
-		-Wno-type-limits)
+if(TARGET iothub_client_mqtt_ws_transport)
+	target_compile_options(iothub_client_mqtt_ws_transport PRIVATE
+			-Wno-maybe-uninitialized
+			-Wno-type-limits)
+endif()
 
-target_include_directories(prov_device_ll_client INTERFACE
-		${AZURE_IOT_SDK_C_DIRECTORY}/provisioning_client/inc)
+if(TARGET prov_device_ll_client)
+	target_include_directories(prov_device_ll_client INTERFACE
+			${AZURE_IOT_SDK_C_DIRECTORY}/provisioning_client/inc)
+endif()
 
-target_compile_options(umqtt PRIVATE
-		-Wno-sign-compare
-		-Wno-type-limits)
+if(TARGET umqtt)
+	target_compile_options(umqtt PRIVATE
+			-Wno-sign-compare
+			-Wno-type-limits)
+endif()
 
 distortosAppendToSavedConfiguration(build_as_dynamic)
 distortosAppendToSavedConfiguration(build_provisioning_service_client)
