@@ -67,12 +67,16 @@ if(TARGET iothub_client)
 endif()
 
 if(TARGET iothub_client_mqtt_transport)
+	target_compile_definitions(iothub_client_mqtt_transport PRIVATE
+			mqtt_client_connect=azure_mqtt_client_connect)
 	target_compile_options(iothub_client_mqtt_transport PRIVATE
 			-Wno-maybe-uninitialized
 			-Wno-type-limits)
 endif()
 
 if(TARGET iothub_client_mqtt_ws_transport)
+	target_compile_definitions(iothub_client_mqtt_ws_transport PRIVATE
+			mqtt_client_connect=azure_mqtt_client_connect)
 	target_compile_options(iothub_client_mqtt_ws_transport PRIVATE
 			-Wno-maybe-uninitialized
 			-Wno-type-limits)
@@ -83,7 +87,19 @@ if(TARGET prov_device_ll_client)
 			${AZURE_IOT_SDK_C_DIRECTORY}/provisioning_client/inc)
 endif()
 
+if(TARGET prov_mqtt_transport)
+	target_compile_definitions(prov_mqtt_transport PRIVATE
+			mqtt_client_connect=azure_mqtt_client_connect)
+endif()
+
+if(TARGET prov_mqtt_ws_transport)
+	target_compile_definitions(prov_mqtt_ws_transport PRIVATE
+			mqtt_client_connect=azure_mqtt_client_connect)
+endif()
+
 if(TARGET umqtt)
+	target_compile_definitions(umqtt PRIVATE
+			mqtt_client_connect=azure_mqtt_client_connect)
 	target_compile_options(umqtt PRIVATE
 			-Wno-sign-compare
 			-Wno-type-limits)
