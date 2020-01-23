@@ -394,7 +394,7 @@ void socketio_dowork(const CONCRETE_IO_HANDLE handle)
 		if (ret == 0)
 			indicateError(instance);	// remote end has shut down the connection
 
-		if (instance.onBytesReceived != nullptr)
+		if (ret != 0 && instance.onBytesReceived != nullptr)
 			instance.onBytesReceived(instance.onBytesReceivedArgument, buffer, ret);
 	}
 }
