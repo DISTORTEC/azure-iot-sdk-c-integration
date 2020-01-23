@@ -123,6 +123,16 @@ int addPendingIo(const SocketIoInstance& instance, const void* const buffer, con
 	return {};
 }
 
+void* cloneOption(const char*, const void*)
+{
+    return {};
+}
+
+void destroyOption(const char*, const void*)
+{
+
+}
+
 void indicateError(SocketIoInstance& instance)
 {
 	instance.ioState = IoState::error;
@@ -185,9 +195,12 @@ int lookupAddressAndInitializeConnection(SocketIoInstance& instance)
 	return {};
 }
 
-OPTIONHANDLER_HANDLE retrieveOptions(CONCRETE_IO_HANDLE)
+OPTIONHANDLER_HANDLE retrieveOptions(const CONCRETE_IO_HANDLE handle)
 {
-	return nullptr;
+	if (handle == nullptr)
+		return {};
+
+	return OptionHandler_Create(cloneOption, destroyOption, socketio_setoption);
 }
 
 int waitForConnection(SocketIoInstance& instance)
