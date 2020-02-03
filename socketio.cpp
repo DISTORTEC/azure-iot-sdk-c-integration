@@ -357,7 +357,7 @@ void socketio_dowork(const CONCRETE_IO_HANDLE handle)
 
 	decltype(singlylinkedlist_get_head_item(instance.pendingIoList)) pendingIoItem;
 	while (pendingIoItem = singlylinkedlist_get_head_item(instance.pendingIoList),
-			pendingIoItem != nullptr && instance.ioState != IoState::open)
+			pendingIoItem != nullptr && instance.ioState == IoState::open)
 	{
 		const auto pendingIo =
 				static_cast<PendingIo*>(const_cast<void*>(singlylinkedlist_item_get_value(pendingIoItem)));
